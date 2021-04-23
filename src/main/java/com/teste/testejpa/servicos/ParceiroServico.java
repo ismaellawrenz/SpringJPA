@@ -5,6 +5,7 @@ import java.util.Optional;
 import com.teste.testejpa.models.Parceiro;
 import com.teste.testejpa.repositorio.ParceiorRepositorio;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,8 +33,12 @@ public class ParceiroServico {
         return repositorio.save(parceiro);
     }
 
-    public void deletar(Long id){
-        repositorio.deleteById(id);
+    public ResponseEntity <?> deletar(Long id){
+        return repositorio.findById(id)
+        .map(record -> {
+            repositorio.deleteById(id);
+            return ResponseEntity.ok().build();
+        }).orElse(ResponseEntity.notFound().build());        
     }
 
 }

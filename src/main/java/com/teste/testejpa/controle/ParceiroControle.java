@@ -7,13 +7,14 @@ import java.util.Optional;
 import com.teste.testejpa.models.Parceiro;
 import com.teste.testejpa.servicos.ParceiroServico;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -22,8 +23,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ParceiroControle {
     private ParceiroServico repositorio;
 
-    public ParceiroControle(ParceiroServico repositorio) {
-        this.repositorio = repositorio;
+    public ParceiroControle(ParceiroServico servico) {
+        this.repositorio = servico;
     }
 
     @PostMapping()
@@ -32,8 +33,10 @@ public class ParceiroControle {
     }
 
     @GetMapping("/{id}")
-    public Optional<Parceiro> buscarPorId(@PathVariable Long id) {
-        return repositorio.buscarPorId(id);
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        return repositorio.buscarPorId(id)
+        .map(record -> ResponseEntity.ok().body(record))
+        .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/all")
@@ -47,8 +50,8 @@ public class ParceiroControle {
     }
 
     @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id){
-        repositorio.deletar(id);
+    public ResponseEntity<?> deletar(@PathVariable Long id){
+        return repositorio.deletar(id);
     }
 
 
