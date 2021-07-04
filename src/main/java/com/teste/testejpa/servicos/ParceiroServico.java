@@ -1,5 +1,6 @@
 package com.teste.testejpa.servicos;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.teste.testejpa.models.Parceiro;
@@ -21,8 +22,8 @@ public class ParceiroServico {
         return repositorio.save(parceiro);
     }
 
-    public Iterable<Parceiro> listarTudo() {
-        return repositorio.findAll();
+    public List<Parceiro> listarTudo() {
+        return (List<Parceiro>) repositorio.findAll();
     }
 
     public Optional<Parceiro> buscarPorId(Long id) {

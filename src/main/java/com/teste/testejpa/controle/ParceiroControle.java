@@ -1,7 +1,7 @@
 package com.teste.testejpa.controle;
 
 import java.sql.SQLException;
-
+import java.util.List;
 import java.util.Optional;
 
 import com.teste.testejpa.models.Parceiro;
@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@Controller("/parceiro")
+@RequestMapping("/parceiro")
 public class ParceiroControle {
     private ParceiroServico repositorio;
 
@@ -39,8 +40,8 @@ public class ParceiroControle {
         .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/all")
-    public Iterable<Parceiro> buscarTodos() {
+    @RequestMapping(value = "/all", method = RequestMethod.GET)    
+    public List<Parceiro> buscarTodos() {
         return repositorio.listarTudo();
     }
 

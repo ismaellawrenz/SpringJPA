@@ -6,6 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(collectionResourceRel = "parceiro", path = "parceiro")
-public interface ParceiorRepositorio extends PagingAndSortingRepository<Parceiro, Long>{
+public interface ParceiorRepositorio extends  PagingAndSortingRepository<Parceiro, Long>{
     
 }
